@@ -2395,6 +2395,7 @@ const (
 	NFTMint
 	NFTTransfer
 	NFTManagement
+	AnchorManagement
 )
 
 var (
@@ -2412,6 +2413,7 @@ var (
 		NFTMint:            {},
 		NFTTransfer:        {},
 		NFTManagement:      {},
+		AnchorManagement:   {},
 	}
 
 	ProxyTypeName = map[ProxyType]string{
@@ -2428,6 +2430,7 @@ var (
 		NFTMint:            "nft_mint",
 		NFTTransfer:        "nft_transfer",
 		NFTManagement:      "nft_management",
+		AnchorManagement:   "anchor_management",
 	}
 
 	ProxyTypeValue = map[string]ProxyType{
@@ -2444,6 +2447,7 @@ var (
 		"nft_mint":            NFTMint,
 		"nft_transfer":        NFTTransfer,
 		"nft_management":      NFTManagement,
+		"anchor_management":   AnchorManagement,
 	}
 )
 
