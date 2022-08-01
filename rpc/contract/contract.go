@@ -1,9 +1,11 @@
 package contract
 
-import "github.com/centrifuge/go-substrate-rpc-client/v4/client"
+import (
+	"github.com/centrifuge/go-substrate-rpc-client/v4/client"
+)
 
 type Contract interface {
-	Call(result interface{}, callRequest CallRequest) error
+	Call(callRequest CallRequest) (*CallResponse, error)
 }
 
 // contract exposes methods for contract rpc calls

@@ -17,6 +17,7 @@
 package types
 
 import (
+	"github.com/btcsuite/btcutil/base58"
 	"github.com/centrifuge/go-substrate-rpc-client/v4/scale"
 )
 
@@ -31,6 +32,15 @@ type MultiAddress struct {
 	AsAddress32 [32]byte
 	IsAddress20 bool
 	AsAddress20 [20]byte
+}
+
+// NewMultiAddressFromAddress creates an MultiAddress from the given SS58 Address
+func NewMultiAddressFromAddress(addr string) MultiAddress {
+	ss58d := base58.Decode(addr)
+	return MultiAddress{
+		IsID: true,
+		AsID: NewAccountID(ss58d[1:33]),
+	}
 }
 
 // NewMultiAddressFromAccountID creates an Address from the given AccountID (public key)

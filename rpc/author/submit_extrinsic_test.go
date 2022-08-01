@@ -18,6 +18,7 @@ package author_test
 
 import (
 	"fmt"
+	"math/big"
 	"testing"
 
 	gsrpc "github.com/centrifuge/go-substrate-rpc-client/v4"
@@ -36,11 +37,18 @@ func TestAuthor_SubmitExtrinsic(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Create a call, transferring 12345 units to Bob
-	bob, err := types.NewMultiAddressFromHexAccountID("0x8eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a48")
+	bob, err := types.NewMultiAddressFromHexAccountID("0x0053f22398ac26ca90e471801dd13dc483e9f3dd70f2d72954667d804d714e24")
 	assert.NoError(t, err)
 
-	amount := types.NewUCompactFromUInt(12345)
-	c, err := types.NewCall(meta, "Balances.transfer", bob, amount)
+	i := big.NewInt(0)
+	amount := types.NewUCompact(i)
+
+	limit := big.NewInt(1280000000000)
+	gasLimit := types.NewUCompact(limit)
+
+	storageDepositLimit := types.NewOptionU128Empty()
+	data := types.MustHexDecodeString("0x633aa551")
+	c, err := types.NewCall(meta, "Contracts.call", bob, amount, gasLimit, storageDepositLimit, data)
 	assert.NoError(t, err)
 
 	for {

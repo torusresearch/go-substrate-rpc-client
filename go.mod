@@ -9,6 +9,7 @@ require (
 	github.com/ethereum/go-ethereum v1.10.17
 	github.com/google/gofuzz v1.1.1-0.20200604201612-c04b05f3adfa
 	github.com/gorilla/websocket v1.5.0
+	github.com/mitchellh/mapstructure v1.4.1
 	github.com/pierrec/xxHash v0.1.5
 	github.com/rs/cors v1.8.2
 	github.com/stretchr/testify v1.7.0
