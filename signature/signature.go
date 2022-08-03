@@ -22,8 +22,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/vedhavyas/go-subkey"
-	"github.com/vedhavyas/go-subkey/sr25519"
+	"github.com/vedhavyas/go-subkey/v2"
+	"github.com/vedhavyas/go-subkey/v2/sr25519"
 	"golang.org/x/crypto/blake2b"
 )
 
@@ -38,17 +38,14 @@ type KeyringPair struct {
 
 // KeyringPairFromSecret creates KeyPair based on seed/phrase and network
 // Leave network empty for default behavior
-func KeyringPairFromSecret(seedOrPhrase string, network uint8) (KeyringPair, error) {
+func KeyringPairFromSecret(seedOrPhrase string, network uint16) (KeyringPair, error) {
 	scheme := sr25519.Scheme{}
 	kyr, err := subkey.DeriveKeyPair(scheme, seedOrPhrase)
 	if err != nil {
 		return KeyringPair{}, err
 	}
 
-	ss58Address, err := kyr.SS58Address(network)
-	if err != nil {
-		return KeyringPair{}, err
-	}
+	ss58Address := kyr.SS58Address(network)
 
 	var pk = kyr.Public()
 
@@ -63,6 +60,12 @@ var TestKeyringPairAlice = KeyringPair{
 	URI:       "//Alice",
 	PublicKey: []byte{0xd4, 0x35, 0x93, 0xc7, 0x15, 0xfd, 0xd3, 0x1c, 0x61, 0x14, 0x1a, 0xbd, 0x4, 0xa9, 0x9f, 0xd6, 0x82, 0x2c, 0x85, 0x58, 0x85, 0x4c, 0xcd, 0xe3, 0x9a, 0x56, 0x84, 0xe7, 0xa5, 0x6d, 0xa2, 0x7d}, //nolint:lll
 	Address:   "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
+}
+
+var TestKeyringPairBob = KeyringPair{
+	URI:       "//Bob",
+	PublicKey: []byte{0x8e, 0xaf, 0x04, 0x15, 0x16, 0x87, 0x73, 0x63, 0x26, 0xc9, 0xfe, 0xa1, 0x7e, 0x25, 0xfc, 0x52, 0x87, 0x61, 0x36, 0x93, 0xc9, 0x12, 0x90, 0x9c, 0xb2, 0x26, 0xaa, 0x47, 0x94, 0xf2, 0x6a, 0x48}, //nolint:lll
+	Address:   "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty",
 }
 
 // Sign signs data with the private key under the given derivation path, returning the signature. Requires the subkey
@@ -129,7 +132,7 @@ func LoadKeyringPairFromEnv() (kp KeyringPair, ok bool) {
 	if !ok || priv == "" {
 		return kp, false
 	}
-	kp, err = KeyringPairFromSecret(priv, uint8(network))
+	kp, err = KeyringPairFromSecret(priv, uint16(network))
 	if err != nil {
 		panic(fmt.Errorf("cannot load keyring pair from env or use fallback: %v", err))
 	}

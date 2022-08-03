@@ -17,7 +17,7 @@ func TestContract_SubmitExtrinsic(t *testing.T) {
 	meta, err := api.RPC.State.GetMetadataLatest()
 	assert.NoError(t, err)
 
-	contractAddress := "5GCAvjHNhyZFoztHvPj2PxDnwVP2Zo8gs66Lgy7Gr73ar1Zp"
+	contractAddress := "5GtgbPRMtcEBAVSjcWqYjWBaz6h8Au9CBJa1WBxWrgG4eBRz"
 	dest := types.NewMultiAddressFromAddress(contractAddress)
 	amount := types.NewUCompact(big.NewInt(0))
 	gasLimit := types.NewUCompact(big.NewInt(1280000000000))

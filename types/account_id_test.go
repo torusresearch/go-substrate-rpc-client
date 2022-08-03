@@ -17,6 +17,7 @@
 package types_test
 
 import (
+	"github.com/centrifuge/go-substrate-rpc-client/v4/signature"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -128,4 +129,15 @@ func TestAccountID_Eq(t *testing.T) {
 		{NewAccountID([]byte{1}), NewBool(true), false},
 		{NewAccountID([]byte{0}), NewBool(false), false},
 	})
+}
+
+func TestAccountID_ConvertToHex(t *testing.T) {
+	hex, err := ConvertSS58AddressToHex("5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY")
+	assert.NoError(t, err)
+	assert.Equal(t, "0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d", hex)
+}
+
+func TestAccountID_ConvertToSS58(t *testing.T) {
+	ss58 := ConvertAccountIDToSS58Address(NewAccountID(signature.TestKeyringPairAlice.PublicKey))
+	assert.Equal(t, signature.TestKeyringPairAlice.Address, ss58)
 }

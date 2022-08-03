@@ -16,7 +16,11 @@
 
 package types
 
-import "github.com/centrifuge/go-substrate-rpc-client/v4/scale"
+import (
+	"github.com/btcsuite/btcutil/base58"
+	"github.com/centrifuge/go-substrate-rpc-client/v4/scale"
+	"github.com/vedhavyas/go-subkey/v2"
+)
 
 type OptionAccountID struct {
 	option
@@ -64,4 +68,13 @@ func NewAccountID(b []byte) AccountID {
 	a := AccountID{}
 	copy(a[:], b)
 	return a
+}
+
+func ConvertSS58AddressToHex(address string) (string, error) {
+	ss58d := base58.Decode(address)
+	return Hex(ss58d[1:33])
+}
+
+func ConvertAccountIDToSS58Address(accountID AccountID) string {
+	return subkey.SS58Encode(accountID[:], 42)
 }
