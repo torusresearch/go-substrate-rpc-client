@@ -70,6 +70,10 @@ func NewAccountID(b []byte) AccountID {
 	return a
 }
 
+func (a AccountID) String() string {
+	return ConvertAccountIDToSS58Address(a)
+}
+
 func ConvertSS58AddressToHex(address string) (string, error) {
 	ss58d := base58.Decode(address)
 	return Hex(ss58d[1:33])
