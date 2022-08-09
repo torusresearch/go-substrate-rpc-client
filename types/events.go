@@ -2576,6 +2576,15 @@ type EventTransactionStorageProofChecked struct {
 	Topics []Hash
 }
 
+// EventTransactionFeePaid is emitted when some fees have been paid.
+type EventTransactionFeePaid struct {
+	Phase     Phase
+	Who       AccountID
+	ActualFee U128
+	Tip       U128
+	Topics    []Hash
+}
+
 // EventTipsTipRetracted is emitted when a tip suggestion has been retracted.
 type EventTipsTipRetracted struct {
 	Phase  Phase
