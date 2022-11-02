@@ -68,6 +68,12 @@ var TestKeyringPairBob = KeyringPair{
 	Address:   "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty",
 }
 
+var TestKeyringPairCharlie = KeyringPair{
+	URI:       "//Charlie",
+	PublicKey: []byte{0x90, 0xb5, 0xab, 0x20, 0x5c, 0x69, 0x74, 0xc9, 0xea, 0x84, 0x1b, 0xe6, 0x88, 0x86, 0x46, 0x33, 0xdc, 0x9c, 0xa8, 0xa3, 0x57, 0x84, 0x3e, 0xea, 0xcf, 0x23, 0x14, 0x64, 0x99, 0x65, 0xfe, 0x22}, //nolint:lll
+	Address:   "5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y",
+}
+
 // Sign signs data with the private key under the given derivation path, returning the signature. Requires the subkey
 // command to be in path
 func Sign(data []byte, privateKeyURI string) ([]byte, error) {
