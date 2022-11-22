@@ -34,8 +34,8 @@ type Config struct {
 func Default() Config {
 	return Config{
 		RPCURL:           extractDefaultRPCURL(),
-		DialTimeout:      10 * time.Second,
-		SubscribeTimeout: 5 * time.Second,
+		DialTimeout:      20 * time.Second,
+		SubscribeTimeout: 10 * time.Second,
 	}
 }
 
